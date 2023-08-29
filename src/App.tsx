@@ -1,6 +1,13 @@
+import { Route, Routes } from 'react-router-dom';
+import Login from './Components/Login';
+
 function App() {
   return (
-    <p>Abrindo pR</p>
+    <main>
+      <Routes>
+        <Route path="/" element={ <Login /> } />
+      </Routes>
+    </main>
   );
 }
 
