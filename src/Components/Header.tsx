@@ -10,7 +10,6 @@ export default function Header() {
     const busca = async () => {
       setCarregando(true);
       const a = await getUser();
-      console.log(a);
       setNome(a.name);
       setCarregando(false);
     };
