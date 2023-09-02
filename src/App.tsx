@@ -3,6 +3,7 @@ import Login from './Components/Login';
 import Search from './Components/Search';
 import Layout from './Components/layout/Index';
 import Album from './Components/Album';
+import Favorites from './Components/Favorites';
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Route path="/" element={ <Layout /> }>
           <Route path="search" element={ <Search /> } />
           <Route path="album/:id" element={ <Album /> } />
+          <Route path="favorites" element={ <Favorites /> } />
         </Route>
       </Routes>
     </main>

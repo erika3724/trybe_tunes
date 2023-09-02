@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { AlbumType, SongType } from '../types';
 import checked from '../images/checked_heart.png';
 import uncheked from '../images/empty_heart.png';
+import { addSong, removeSong } from '../services/favoriteSongsAPI';
 
 type Music = {
   album: [AlbumType, ...SongType[]] | any
@@ -16,14 +17,18 @@ export default function MusicCard({ album }:Music) {
     setAlbums(b);
     setSong(a);
   }, [album]);
-  const heart = async (a: any) => {
+  const heart = async (a: any, b: any) => {
     const c = album.filter((d: { trackId: any; }) => d.trackId === a.trackId);
-    if (!c[0].favorite || c[0].favorite === false) c[0].favorite = true;
-    else c[0].favorite = false;
+    if (b.checked) {
+      c[0].favorite = true;
+      await addSong(c[0]);
+    } else {
+      c[0].favorite = false;
+      await removeSong(c[0]);
+    }
     const q = song.indexOf(a);
     const t = song.filter((e: { trackId: any; }) => e.trackId !== a.trackId);
     t.splice(q, 0, c[0]);
-    console.log(c[0].favorite);
     setSong(t);
   };
   return (
@@ -51,7 +56,8 @@ export default function MusicCard({ album }:Music) {
                   type="checkbox"
                   name={ b.trackName }
                   id={ b.trackId }
-                  onChange={ () => heart(b) }
+                  checked={ b.favorite }
+                  onChange={ (a) => heart(b, a.target) }
                   hidden
                 />
                 <label
